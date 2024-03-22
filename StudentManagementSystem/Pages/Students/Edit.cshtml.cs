@@ -49,6 +49,9 @@ namespace StudentManagementSystem.Pages.Students
 
         public async Task<IActionResult> OnPostAsync()
         {
+
+            ViewData["MajorId"] = new SelectList(_context.Majors, "MajorId", "MajorName");
+            ViewData["ClassId"] = new SelectList(_context.Classes, "ClassId", "ClassClassName");
             if (!ModelState.IsValid)
             {
                 return Page();

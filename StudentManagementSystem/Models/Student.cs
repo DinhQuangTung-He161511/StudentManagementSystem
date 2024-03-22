@@ -25,7 +25,7 @@ namespace StudentManagementSystem.Models
         public int? ClassId { get; set; }
 
         public virtual Class? Class { get; set; }
-        public virtual Major Major { get; set; } = null!;
+        public virtual Major? Major { get; set; } 
         public virtual ICollection<StudentsExcercy> StudentsExcercies { get; set; }
 
         public virtual ICollection<ExamSchedule> ExamSchedules { get; set; }
