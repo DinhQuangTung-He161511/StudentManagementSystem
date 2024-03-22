@@ -11,7 +11,7 @@ namespace StudentManagementSystem.Models
             Students = new HashSet<Student>();
         }
 
-        public int ClassId { get; set; }
+        public int? ClassId { get; set; }
         public string? ClassClassName { get; set; }
 
         public virtual ICollection<ClassSubject> ClassSubjects { get; set; }
