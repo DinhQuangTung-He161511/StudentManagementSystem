@@ -38,21 +38,18 @@ namespace StudentManagementSystem.Pages.Students
 
             try
             {
-                // Check if a student with the same ID already exists
                 if (await IsDuplicateStudentId(Student.StudentId))
                 {
                     ModelState.AddModelError(string.Empty, "A student with the same ID already exists.");
                     return Page();
                 }
 
-                // Check if a student with the same email already exists
                 if (await IsDuplicateEmail(Student.StudentEmail))
                 {
                     ModelState.AddModelError(string.Empty, "A student with the same email already exists.");
                     return Page();
                 }
 
-                // If no duplicate student ID or email, proceed with insertion
                 _context.Students.Add(Student);
                 await _context.SaveChangesAsync();
 
@@ -60,7 +57,6 @@ namespace StudentManagementSystem.Pages.Students
             }
             catch (DbUpdateException ex)
             {
-                // Handle the exception appropriately (e.g., log the error)
                 ModelState.AddModelError(string.Empty, "An error occurred while saving the student data.");
                 return Page();
             }
