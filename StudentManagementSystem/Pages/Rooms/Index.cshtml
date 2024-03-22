@@ -1,0 +1,91 @@
+﻿@page
+@model StudentManagementSystem.Pages.Rooms.IndexModel
+@using StudentManagementSystem.Models;
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    ViewData["Title"] = "Index";
+    var pagingmodel = new StudentManagementSystem.Helpers.PagingModel()
+            {
+                currentPage = Model.currentPage,
+                countPages = Model.countPages,
+                generateUrl = (int? page) => Url.Page("/Rooms/Index", new { p = page })
+            };
+    int? roleId = @Accessor.HttpContext?.Session.GetInt32("RoleId");
+    PRN221_StudentManagementSystemContext context = new PRN221_StudentManagementSystemContext();
+    Admin? admin = context.Admins.FirstOrDefault(x => x.RoleId == roleId);
+
+}
+
+@if (roleId != null)
+{
+    <div class="row bg-white p-2">
+        <div class="col-sm-12">
+            <div class="white-box">
+                <h3 class="box-title">Manage Rooms </h3>
+                <h3>Total Room : @ViewBag.TotalRoom </h3>
+
+
+                @if (admin != null)
+                {
+                    <p>
+                        <a class="btn btn-primary mt-2" asp-page="Create">Create New</a>
+                    </p>
+                }
+                <div class="table-responsive">
+                    @*  @if (Model.Majors.Any())*@
+                    @*{*@
+                    <table id="userTable" data-toggle="table"
+                           class="table text-nowrap">
+                        <thead>
+                            <tr>
+
+                                <th data-sortable="true">
+                                    @Html.DisplayNameFor(model => model.Rooms[0].RoomId)
+                                </th>
+
+
+                                @if (admin != null)
+                                {
+                                    <th></th>
+                                }
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Rooms)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RoomId)
+                                    </td>
+
+
+                                    @if (admin != null)
+                                    {
+                                        <td>
+
+
+                                            <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.RoomId">Delete</a>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @*}*@
+                    @*  else
+                {
+                <p>No results found.</p>
+                }*@
+                </div>
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("/Pages/Shared/_Paging.cshtml",pagingmodel)
+}
+else
+{
+    @await Html.PartialAsync("_AccessDenied")
+}

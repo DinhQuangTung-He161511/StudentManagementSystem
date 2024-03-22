@@ -120,7 +120,6 @@
 
   <ItemGroup>
     <Folder Include="Pages\Admin\" />
-    <Folder Include="Pages\Rooms\" />
   </ItemGroup>
 
 </Project>
