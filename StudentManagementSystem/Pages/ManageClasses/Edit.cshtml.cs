@@ -56,7 +56,7 @@ namespace StudentManagementSystem.Pages.ManageClasses
             catch (DbUpdateConcurrencyException)
             {
                 // Check if Class with the given ClassId exists
-                if (!ClassExists(Class.ClassId.Value))
+                if (!ClassExists(Class.ClassId))
                 {
                     return NotFound();
                 }
